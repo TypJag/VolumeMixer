@@ -13,4 +13,5 @@ Some packages are needed to run the python script. More info in the script.
 
 The arduino code requires bounce2.h. https://github.com/thomasfredericks/Bounce2
 
+This project uses nircmd.exe by NirSoft https://www.nirsoft.net/utils/nircmd.html
 
