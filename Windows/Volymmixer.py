@@ -5,10 +5,13 @@ import os
 import ctypes
 import codecs
 import win32ui
+import win32gui
 import win32api
+import win32process
 from infi.systray import SysTrayIcon
 from win32con import VK_MEDIA_PLAY_PAUSE, VK_MEDIA_NEXT_TRACK, VK_MEDIA_PREV_TRACK, KEYEVENTF_EXTENDEDKEY
 import nircmdcalls
+import pycawcalls
 
 #Script for controling the volume for indvidual programs where the volume is
 #controled by a arduino communicating using serial. pidNano might be needed to
@@ -20,6 +23,7 @@ import nircmdcalls
 #infi.systray
 #pyserial
 #pywin32
+#pycaw https://github.com/AndreMiras/pycaw more install instructions in the readme
 
 shouldIQuit = False #
 
@@ -88,7 +92,7 @@ while not shouldIQuit:
     try:
         arduinoStringParts = arduinostring.decode('utf-8').split()
         channel = arduinoStringParts[0]
-        value = arduinoStringParts[1]
+        value = float(arduinoStringParts[1])
     except:
         # Corrupt command, drop it and move on
         continue
@@ -101,10 +105,16 @@ while not shouldIQuit:
         elif value == "2":
             nextTrack()
     elif channel == "1": #Systemsound
-        nircmdcalls.levelfunk1(value)
+        pycawcalls.setSystemVolume(value)
     elif channel == "2": #Spotift Vlc
-        nircmdcalls.levelfunk2(value)
+        pycawcalls.setAppVolumeName('Spotify.exe', value)
+        pycawcalls.setAppVolumeName('vlc.exe', value)
+        #nircmdcalls.levelfunk2(value)
     elif channel == "3": #Discord/Skype
-        nircmdcalls.levelfunk3(value)
+        pycawcalls.setAppVolumeName('Discord.exe', value) #discord pid 4944 misc audio 11248 voice audio
+        pycawcalls.setAppVolumeName('skype.exe', value)
     elif channel == "4": #Focused on
-        nircmdcalls.levelfunk4(value)
+        window = win32gui.GetForegroundWindow()
+        pids = win32process.GetWindowThreadProcessId(window)
+        for pid in pids:
+            pycawcalls.setAppVolumePid(pid, value)
