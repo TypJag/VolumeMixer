@@ -4,10 +4,12 @@ import serial.tools.list_ports
 import os
 import ctypes
 import codecs
+
 import win32ui
 import win32gui
 import win32api
 import win32process
+from time import sleep
 from infi.systray import SysTrayIcon
 from win32con import VK_MEDIA_PLAY_PAUSE, VK_MEDIA_NEXT_TRACK, VK_MEDIA_PREV_TRACK, KEYEVENTF_EXTENDEDKEY
 import nircmdcalls
@@ -85,7 +87,7 @@ while not shouldIQuit:
             #print(arduinostring)
     except:
         # Wait and restart serialport and go on
-        sleep(1)
+        time.sleep(10)
         serialport = serial.Serial(findArduinoNanoPort(pidNano))
         continue
 
@@ -114,7 +116,7 @@ while not shouldIQuit:
         pycawcalls.setAppVolumeName('Discord.exe', value) #discord pid 4944 misc audio 11248 voice audio
         pycawcalls.setAppVolumeName('skype.exe', value)
     elif channel == "4": #Focused on
-        window = win32gui.GetForegroundWindow()
-        pids = win32process.GetWindowThreadProcessId(window)
-        for pid in pids:
+        window = win32gui.GetForegroundWindow() #Gets a handle on the foregroundwindow
+        pids = win32process.GetWindowThreadProcessId(window) #uses the handle to get pid
+        for pid in pids: #some programs have more then one pid
             pycawcalls.setAppVolumePid(pid, value)
