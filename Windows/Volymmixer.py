@@ -10,7 +10,6 @@ import win32api
 import win32process
 from infi.systray import SysTrayIcon
 from win32con import VK_MEDIA_PLAY_PAUSE, VK_MEDIA_NEXT_TRACK, VK_MEDIA_PREV_TRACK, KEYEVENTF_EXTENDEDKEY
-import nircmdcalls
 import pycawcalls
 
 #Script for controling the volume for indvidual programs where the volume is
