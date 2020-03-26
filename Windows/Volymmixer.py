@@ -4,7 +4,6 @@ import serial.tools.list_ports
 import os
 import ctypes
 import codecs
-
 import win32ui
 import win32gui
 import win32api
@@ -99,11 +98,11 @@ while not shouldIQuit:
         continue
 
     if channel == "0": #Pause/play, next and previous track
-        if value == "0":
+        if value == 0:
             prevTrack()
-        elif value == "1":
+        elif value == 1:
             pauseTrack()
-        elif value == "2":
+        elif value == 2:
             nextTrack()
     elif channel == "1": #Systemsound
         pycawcalls.setSystemVolume(value)
