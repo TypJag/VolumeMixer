@@ -1,0 +1,20 @@
+Felsökning
+
+Stor ström gick. Kortslutning mellan 3v3 och gnd. Försökte med värmekamera indentifiera var. Svårt gav område. Kapade ledare för att undersöka närmare. Hittade lödbrygga vid en av avkopplingskondningarna.
+
+Stor ström går fortfarande. Kopplade förbi LDOn och matar med 3v3 direkt. Kortet drar mer rimligt ström. Ca 7mA. Inget händer dock och 1v1 generas inte som den ska. 
+
+Testar exprimentera runt lite med hur run signalen görs. Inget gensvar. Mäter runt efter att allting är inkopplat som förväntat. Inget resultat. 
+
+Gör en gissning att MCUn har dött vid expriment. Byter MCU. Monterar den med absolut minsta möjliga inkopplingar. Endast matningar och klocka samt run och testenable till jord. 
+
+Vid verifikation av montage mäter 3v3 till GND 0.8OOhm typiskt obra. Kopplar lös gnd kopplingen till chipet och mäter mellan GND padden och 3v3 på chipet. Fortfarande 0.8Ohm.
+
+Mäter på en ny krets omonterad. Fortfarande 0.8Ohm. Konstaterar att kretsen är vänd 90 grader mot förväntat. 
+
+Monterar ny krets med minsta möjliga bestyckning. Kretsen startar och 1v1 generas som förväntat och klockan går. Monterar resten av kopplingarna. Kortet startar och MCUn dyker upp som förväntat när en dator kopplas via usb.
+
+Programering tar inte. SD3 och SD0 hade råkat byta plats vid montage. Efter rätning funkar kortet som förväntat. Den läser av potentiometrarna och knapparna som förväntat. 
+
+ 
+
