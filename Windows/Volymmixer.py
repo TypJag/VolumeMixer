@@ -27,7 +27,7 @@ import pycawcalls
 
 shouldIQuit = False #
 
-pidNano = 29987 #product id for the arduino nano which is used to identify the correct COM-port
+pidNano = 192 #product id for the arduino nano which is used to identify the correct COM-port
 #product id. Unique for diffrent kind of devices might be needed to be modified. Use following the following code to find pid
 #portList = list(serial.tools.list_ports.comports())
 
@@ -92,7 +92,7 @@ while not shouldIQuit:
     try:
         arduinoStringParts = arduinostring.decode('utf-8').split()
         channel = arduinoStringParts[0]
-        value = float(arduinoStringParts[1])
+        value = 1-float(arduinoStringParts[1])
     except:
         # Corrupt command, drop it and move on
         continue
@@ -104,16 +104,16 @@ while not shouldIQuit:
             pauseTrack()
         elif value == 2:
             nextTrack()
-    elif channel == "1": #Systemsound
+    elif channel == "4": #Systemsound
         pycawcalls.setSystemVolume(value)
-    elif channel == "2": #Spotift Vlc
+    elif channel == "3": #Spotift Vlc
         pycawcalls.setAppVolumeName('Spotify.exe', value)
         pycawcalls.setAppVolumeName('vlc.exe', value)
         #nircmdcalls.levelfunk2(value)
-    elif channel == "3": #Discord/Skype
+    elif channel == "2": #Discord/Skype
         pycawcalls.setAppVolumeName('Discord.exe', value) #discord pid 4944 misc audio 11248 voice audio
         pycawcalls.setAppVolumeName('skype.exe', value)
-    elif channel == "4": #Focused on
+    elif channel == "1": #Focused on
         window = win32gui.GetForegroundWindow() #Gets a handle on the foregroundwindow
         pids = win32process.GetWindowThreadProcessId(window) #uses the handle to get pid
         for pid in pids: #some programs have more then one pid
